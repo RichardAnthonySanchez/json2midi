@@ -13,8 +13,8 @@ const rootToMidi = (root, tonic = 'G') => {
 
 // Simple minor/major chord mapping based on `type`
 const chordTypeToIntervals = {
-    5: [0, 3, 7],  // minor triad
-    4: [0, 4, 7],  // major triad
+    5: [0, 4, 7],  // minor triad
+    4: [0, 5, 7],  // major triad
     // add more types if needed
 };
 
@@ -26,9 +26,9 @@ const track = midi.addTrack();
 json.chords.forEach(chord => {
     if (!chord.isRest) {
         const rootNote = rootToMidi(chord.root, json.keys?.[0]?.tonic || 'C');
-        const intervals = chordTypeToIntervals[chord.type] || [0, 3, 7];
-        const startTime = (chord.beat - 1) / 4; // convert beat to seconds assuming 1 beat = 1 quarter
-        const duration = chord.duration / 4;
+        const intervals = chordTypeToIntervals[chord.type] || [0, 5, 7];
+        const startTime = (chord.beat - 1) / 2; // convert beat to seconds assuming 1 beat = 1 quarter
+        const duration = chord.duration / 2;
 
         intervals.forEach(interval => {
             track.addNote({
